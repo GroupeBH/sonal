@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { AiOutlineHome, AiOutlineInfoCircle, AiOutlinePhone } from 'react-icons/ai';
 import { IoGameControllerOutline } from 'react-icons/io5';
 import { FaTrophy, FaTicketAlt, FaUserPlus } from 'react-icons/fa';
-import { BsHeart } from 'react-icons/bs';
-import { IoNotificationsOutline } from 'react-icons/io5';
+// import { BsHeart } from 'react-icons/bs';
+// import { IoNotificationsOutline } from 'react-icons/io5';
 import { HiOutlineMenu, HiOutlineX } from 'react-icons/hi';
 import RegisterModal from './Auth/RegisterModal';
 
@@ -18,8 +18,8 @@ const Navbar = () => {
     { name: 'Nos Produits', icon: <IoGameControllerOutline className="w-4 h-4" />, href: '/products' },
     { name: 'Résultats', icon: <FaTrophy className="w-4 h-4" />, href: '/results' },
     { name: 'Vérifier un ticket', icon: <FaTicketAlt className="w-4 h-4" />, href: '/verify-ticket' },
-    { name: 'Jeu Responsable', icon: <BsHeart className="w-4 h-4" />, href: '/responsible-gaming' },
-    { name: 'Actualités', icon: <IoNotificationsOutline className="w-4 h-4" />, href: '/news' },
+    // { name: 'Jeu Responsable', icon: <BsHeart className="w-4 h-4" />, href: '/responsible-gaming' },
+    // { name: 'Actualités', icon: <IoNotificationsOutline className="w-4 h-4" />, href: '/news' },
     { name: 'Contact', icon: <AiOutlinePhone className="w-4 h-4" />, href: '/contact' },
   ];
 
@@ -50,14 +50,25 @@ const Navbar = () => {
                     <span className="ml-1">{item.name}</span>
                   </Link>
                 ))}
+               
+              </div>
+            </div>
+
+            <div className='hidden md:flex md:flex-row gap-5'>
                 <button
                   onClick={() => setShowRegisterModal(true)}
-                  className="flex items-center px-2 py-1.5 rounded text-xs font-medium bg-accent-500 hover:bg-accent-600 text-white transition-colors"
+                  className="flex items-center px-2 py-1.5 rounded text-xs font-medium bg-red-500 hover:bg-red-600 text-white transition-colors"
                 >
-                  <FaUserPlus className="w-4 h-4 mr-1" />
-                  Créer votre compte
+                  {/* <FaUserPlus className="w-4 h-4 mr-1" /> */}
+                  Nous contacter
                 </button>
-              </div>
+                <button
+                      onClick={() => setShowRegisterModal(true)}
+                      className="flex items-center px-2 py-1.5 rounded text-xs font-medium bg-accent-500 hover:bg-accent-600 text-white transition-colors"
+                >
+                  {/* <FaUserPlus className="w-4 h-4 mr-1" /> */}
+                  Placer un pari
+                </button>
             </div>
 
             <div className="md:hidden">

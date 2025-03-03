@@ -3,6 +3,8 @@ import { FaUser, FaEnvelope, FaLock, FaPhone, FaCheck } from 'react-icons/fa';
 import { useAuth } from '../../contexts/AuthContext';
 import { validatePhoneNumber } from '../../utils/validators';
 import { showSuccessNotification, showErrorNotification } from '../../utils/notifications';
+// import { useNavigate } from 'react-router-dom';
+import LoginModal from './LoginModal';
 
 interface RegisterFormProps {
   onSuccess: () => void;
@@ -21,6 +23,7 @@ interface FormErrors {
 
 const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onCancel }) => {
   const { login } = useAuth();
+  // const navigate = useNavigate()
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -31,6 +34,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onCancel }) => {
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [connecting, setConnecting] = useState(false)
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
@@ -94,6 +98,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onCancel }) => {
     } catch (error) {
       showErrorNotification('Une erreur est survenue lors de la création du compte. Veuillez réessayer.');
       setErrors({ submit: 'Une erreur est survenue. Veuillez réessayer.' });
+      console.log(error)
     } finally {
       setIsSubmitting(false);
     }
@@ -125,7 +130,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onCancel }) => {
               name="firstName"
               value={formData.firstName}
               onChange={handleChange}
-              className="pl-8 sm:pl-10 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 text-xs sm:text-sm"
+              className="pl-8 sm:pl-10 block py-3 w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 text-xs sm:text-sm"
               placeholder="Jean"
             />
           </div>
@@ -148,7 +153,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onCancel }) => {
               name="lastName"
               value={formData.lastName}
               onChange={handleChange}
-              className="pl-8 sm:pl-10 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 text-xs sm:text-sm"
+              className="pl-8 sm:pl-10 py-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 text-xs sm:text-sm"
               placeholder="Dupont"
             />
           </div>
@@ -158,50 +163,52 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onCancel }) => {
         </div>
       </div>
 
-      <div>
-        <label htmlFor="email" className="block text-xs sm:text-sm font-medium text-gray-700">
-          Email
-        </label>
-        <div className="mt-1 relative">
-          <div className="absolute inset-y-0 left-0 pl-2 sm:pl-3 flex items-center pointer-events-none">
-            <FaEnvelope className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400" />
+      <div className="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2">
+        <div>
+          <label htmlFor="email" className="block text-xs sm:text-sm font-medium text-gray-700">
+            Email
+          </label>
+          <div className="mt-1 relative">
+            <div className="absolute inset-y-0 left-0 pl-2 sm:pl-3 flex items-center pointer-events-none">
+              <FaEnvelope className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400" />
+            </div>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className="pl-8 sm:pl-10 py-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 text-xs sm:text-sm"
+              placeholder="exemple@email.com"
+            />
           </div>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className="pl-8 sm:pl-10 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 text-xs sm:text-sm"
-            placeholder="exemple@email.com"
-          />
+          {errors.email && (
+            <p className="mt-1 text-xs text-red-600">{errors.email}</p>
+          )}
         </div>
-        {errors.email && (
-          <p className="mt-1 text-xs text-red-600">{errors.email}</p>
-        )}
-      </div>
 
-      <div>
-        <label htmlFor="phone" className="block text-xs sm:text-sm font-medium text-gray-700">
-          Téléphone
-        </label>
-        <div className="mt-1 relative">
-          <div className="absolute inset-y-0 left-0 pl-2 sm:pl-3 flex items-center pointer-events-none">
-            <FaPhone className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400" />
+        <div>
+          <label htmlFor="phone" className="block text-xs sm:text-sm font-medium text-gray-700">
+            Téléphone
+          </label>
+          <div className="mt-1 relative">
+            <div className="absolute inset-y-0 left-0 pl-2 sm:pl-3 flex items-center pointer-events-none">
+              <FaPhone className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400" />
+            </div>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              className="pl-8 sm:pl-10 py-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 text-xs sm:text-sm"
+              placeholder="0812345678"
+            />
           </div>
-          <input
-            type="tel"
-            id="phone"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            className="pl-8 sm:pl-10 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 text-xs sm:text-sm"
-            placeholder="0812345678"
-          />
+          {errors.phone && (
+            <p className="mt-1 text-xs text-red-600">{errors.phone}</p>
+          )}
         </div>
-        {errors.phone && (
-          <p className="mt-1 text-xs text-red-600">{errors.phone}</p>
-        )}
       </div>
 
       <div>
@@ -218,7 +225,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onCancel }) => {
             name="password"
             value={formData.password}
             onChange={handleChange}
-            className="pl-8 sm:pl-10 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 text-xs sm:text-sm"
+            className="pl-8 sm:pl-10 py-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 text-xs sm:text-sm"
           />
         </div>
         {errors.password && (
@@ -240,7 +247,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onCancel }) => {
             name="confirmPassword"
             value={formData.confirmPassword}
             onChange={handleChange}
-            className="pl-8 sm:pl-10 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 text-xs sm:text-sm"
+            className="pl-8 sm:pl-10 py-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 text-xs sm:text-sm"
           />
         </div>
         {errors.confirmPassword && (
@@ -253,6 +260,20 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onCancel }) => {
           <p className="text-xs text-red-600">{errors.submit}</p>
         </div>
       )}
+
+      <div className=''>
+        <p>Si vous avez dejà un compte,{" "}
+          <span
+            className='text-blue-400 cursor-pointer'
+            onClick={()=>{
+              setConnecting(true)
+              // onCancel()
+            }}
+          >
+            connectez-vous
+          </span>
+        </p>
+      </div>
 
       <div className="flex space-x-3 sm:space-x-4">
         <button
@@ -278,6 +299,13 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onCancel }) => {
           )}
         </button>
       </div>
+      {connecting && (
+        <LoginModal
+          isOpen={connecting} 
+          onClose={()=>setConnecting(false)}
+          onSuccess={()=>setConnecting(false)}
+        />
+      )}
     </form>
   );
 };

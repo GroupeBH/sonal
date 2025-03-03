@@ -49,7 +49,7 @@ const Hero = () => {
 
   return (
     <>
-      <div className="relative h-[600px] overflow-hidden">
+      <div className="relative h-[300px] overflow-hidden">
         {/* Background Slides */}
         {slides.map((slide, index) => (
           <div
@@ -98,7 +98,7 @@ const Hero = () => {
                     onClick={() => setShowRegisterModal(true)}
                     className="w-full sm:w-auto inline-flex items-center justify-center px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 text-sm sm:text-base md:text-lg font-medium rounded-md text-white bg-secondary-600 hover:bg-secondary-700 transition-colors"
                   >
-                    Créer votre compte
+                    Placer un pari
                     <FaUserPlus className="ml-2 w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
                   </button>
                 )}

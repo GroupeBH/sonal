@@ -20,7 +20,7 @@ const GameMenu = () => {
 
   return (
     <>
-      <div className="bg-primary-900 py-3 sm:py-6">
+      <div className="bg-slate-300 py-3 sm:py-6">
         <div className="max-w-7xl mx-auto px-2 sm:px-6">
           <div className="flex overflow-x-auto space-x-2 sm:space-x-8 pb-2 scrollbar-hide">
             <button
