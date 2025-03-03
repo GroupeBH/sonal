@@ -71,13 +71,13 @@ const Hero = () => {
         <div className="absolute inset-0 flex items-center z-20">
           <div className="w-full max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
             <div className="flex flex-col items-center max-w-lg mx-auto">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2 md:mb-4 text-center">
+              <h1 className="text-xl sm:text-xl md:text-4xl font-bold text-white mb-2 md:mb-4 text-center">
                 {slides[currentSlide].title}
               </h1>
               <p className="text-base sm:text-lg md:text-xl text-white mb-3 md:mb-8 text-center">
                 {slides[currentSlide].description}
               </p>
-              <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 w-full sm:w-auto sm:justify-center">
+              <div className="flex flex-col sm:flex-row space-y-2 mb-5 sm:space-y-0 sm:space-x-4 w-full sm:w-auto sm:justify-center">
                 <a
                   href="/results"
                   className="w-full sm:w-auto inline-flex items-center justify-center px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 text-sm sm:text-base md:text-lg font-medium rounded-md text-primary-900 bg-accent-400 hover:bg-accent-500 transition-colors"

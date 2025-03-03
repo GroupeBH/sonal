@@ -114,7 +114,8 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onCancel }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+   <>
+      <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
       <div className="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2">
         <div>
           <label htmlFor="firstName" className="block text-xs sm:text-sm font-medium text-gray-700">
@@ -299,14 +300,15 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onCancel }) => {
           )}
         </button>
       </div>
-      {connecting && (
-        <LoginModal
-          isOpen={connecting} 
-          onClose={()=>setConnecting(false)}
-          onSuccess={()=>setConnecting(false)}
-        />
-      )}
     </form>
+    {connecting && (
+      <LoginModal
+        isOpen={connecting} 
+        onClose={()=>setConnecting(false)}
+        onSuccess={()=>setConnecting(false)}
+      />
+    )}
+   </>
   );
 };
 
