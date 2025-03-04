@@ -45,7 +45,7 @@ const TicketForm: React.FC = () => {
             id="ticketNumber"
             value={ticketNumber}
             onChange={(e) => setTicketNumber(e.target.value)}
-            className="pl-10 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            className="pl-10 py-3 block w-full border rounded-md border-gray-300"
             placeholder="Ex: ABC123456789"
             required
             pattern="[A-Za-z0-9]+"
@@ -64,7 +64,7 @@ const TicketForm: React.FC = () => {
           id="drawDate"
           value={drawDate}
           onChange={(e) => setDrawDate(e.target.value)}
-          className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          className="block w-full rounded-md py-3 py-2 border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
           required
         />
       </div>

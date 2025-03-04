@@ -131,7 +131,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onCancel }) => {
               name="firstName"
               value={formData.firstName}
               onChange={handleChange}
-              className="pl-8 sm:pl-10 block py-3 w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 text-xs sm:text-sm"
+              className="pl-8 sm:pl-10 block py-3 border border-gray-300 w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 text-xs sm:text-sm"
               placeholder="Jean"
             />
           </div>
@@ -154,7 +154,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onCancel }) => {
               name="lastName"
               value={formData.lastName}
               onChange={handleChange}
-              className="pl-8 sm:pl-10 py-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 text-xs sm:text-sm"
+              className="pl-8 sm:pl-10 py-3 border border-gray-300 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 text-xs sm:text-sm"
               placeholder="Dupont"
             />
           </div>
@@ -179,7 +179,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onCancel }) => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="pl-8 sm:pl-10 py-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 text-xs sm:text-sm"
+              className="pl-8 sm:pl-10 py-3 border border-gray-300 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 text-xs sm:text-sm"
               placeholder="exemple@email.com"
             />
           </div>
@@ -202,7 +202,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onCancel }) => {
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-              className="pl-8 sm:pl-10 py-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 text-xs sm:text-sm"
+              className="pl-8 sm:pl-10 py-3 border border-gray-300 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 text-xs sm:text-sm"
               placeholder="0812345678"
             />
           </div>
@@ -226,7 +226,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onCancel }) => {
             name="password"
             value={formData.password}
             onChange={handleChange}
-            className="pl-8 sm:pl-10 py-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 text-xs sm:text-sm"
+            className="pl-8 sm:pl-10 py-3 border border-gray-300 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 text-xs sm:text-sm"
           />
         </div>
         {errors.password && (
@@ -248,7 +248,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onCancel }) => {
             name="confirmPassword"
             value={formData.confirmPassword}
             onChange={handleChange}
-            className="pl-8 sm:pl-10 py-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 text-xs sm:text-sm"
+            className="pl-8 sm:pl-10 py-3 border border-gray-300 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 text-xs sm:text-sm"
           />
         </div>
         {errors.confirmPassword && (
