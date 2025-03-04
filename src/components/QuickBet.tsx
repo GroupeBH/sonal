@@ -129,7 +129,7 @@ const QuickBet: React.FC = () => {
             id="quickBetAmount"
             value={betAmount}
             onChange={(e) => setBetAmount(e.target.value)}
-            className="pl-10 block w-full rounded-md border-primary-300 shadow-sm focus:border-primary-500 focus:ring-primary-500"
+            className="pl-10 py-3 border border-gray-300 block w-full rounded-md"
             placeholder="Entrez votre mise"
             min="300"
           />

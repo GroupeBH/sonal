@@ -3,6 +3,7 @@ import { BsArrowRight } from 'react-icons/bs';
 import { FaUserPlus } from 'react-icons/fa';
 import RegisterModal from './Auth/RegisterModal';
 import { useAuth } from '../contexts/AuthContext';
+import bgImg from '../assets/background.png'
 
 const Hero = () => {
   const { isAuthenticated } = useAuth();
@@ -60,7 +61,7 @@ const Hero = () => {
           >
             <div className="absolute inset-0 bg-gradient-to-r from-primary-900/90 to-transparent z-10" />
             <img
-              src={slide.image}
+              src={bgImg}
               alt={slide.title}
               className="w-full h-full object-cover"
             />

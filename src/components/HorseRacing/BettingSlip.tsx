@@ -76,7 +76,7 @@ const BettingSlip: React.FC<BettingSlipProps> = ({
                   id="betAmount"
                   value={betAmount}
                   onChange={(e) => onBetAmountChange(e.target.value)}
-                  className="pl-7 block w-full rounded border-gray-300 focus:ring-primary-500 focus:border-primary-500 text-xs"
+                  className="pl-7 py-3 block w-full rounded border border-gray-300 text-xs"
                   placeholder="Entrez votre mise"
                   min="300"
                 />
