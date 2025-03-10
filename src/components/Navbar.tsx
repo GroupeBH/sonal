@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { AiOutlineHome, AiOutlineInfoCircle } from 'react-icons/ai';
+import { AiOutlineHome, AiOutlineInfoCircle, AiOutlinePhone } from 'react-icons/ai';
 import { IoGameControllerOutline } from 'react-icons/io5';
-import { FaTrophy, FaTicketAlt, FaUserPlus } from 'react-icons/fa';
+import { FaTrophy, FaUserPlus } from 'react-icons/fa';
 // import { BsHeart } from 'react-icons/bs';
 // import { IoNotificationsOutline } from 'react-icons/io5';
 import { HiOutlineMenu, HiOutlineX } from 'react-icons/hi';
@@ -18,7 +18,7 @@ const Navbar = () => {
     { name: 'À propos', icon: <AiOutlineInfoCircle className="w-4 h-4" />, href: '/about' },
     { name: 'Nos Produits', icon: <IoGameControllerOutline className="w-4 h-4" />, href: '/products' },
     { name: 'Résultats', icon: <FaTrophy className="w-4 h-4" />, href: '/results' },
-    { name: 'Vérifier un ticket', icon: <FaTicketAlt className="w-4 h-4" />, href: '/verify-ticket' },
+    { name: 'Nous contacter', icon: <AiOutlinePhone className="w-4 h-4" />, href: '/contact' },
     // { name: 'Jeu Responsable', icon: <BsHeart className="w-4 h-4" />, href: '/responsible-gaming' },
     // { name: 'Actualités', icon: <IoNotificationsOutline className="w-4 h-4" />, href: '/news' },
     // { name: 'Contact', icon: <AiOutlinePhone className="w-4 h-4" />, href: '/contact' },
@@ -57,11 +57,11 @@ const Navbar = () => {
 
             <div className='hidden md:flex md:flex-row gap-5'>
                 <button
-                  onClick={() => navigate("/contact")}
+                  onClick={() => navigate("/verify-ticket")}
                   className="flex items-center px-2 py-1.5 rounded text-xs font-medium bg-red-500 hover:bg-red-600 text-white transition-colors"
                 >
                   {/* <FaUserPlus className="w-4 h-4 mr-1" /> */}
-                  Nous contacter
+                  Verrifier un ticket
                 </button>
                 <button
                       onClick={() => setShowRegisterModal(true)}

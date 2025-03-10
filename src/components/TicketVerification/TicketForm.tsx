@@ -24,6 +24,7 @@ const TicketForm: React.FC = () => {
         showInfoNotification('Ce ticket n\'est pas gagnant. Tentez à nouveau votre chance!');
       }
     } catch (error) {
+      console.error(error)
       showErrorNotification('Une erreur est survenue lors de la vérification. Veuillez réessayer.');
     } finally {
       setIsSubmitting(false);

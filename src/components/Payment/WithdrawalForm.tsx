@@ -45,6 +45,7 @@ const WithdrawalForm: React.FC<WithdrawalFormProps> = ({
       setIsProcessing(false);
       onSuccess();
     } catch (error) {
+      console.error(error)
       setStatus('error');
       showErrorNotification('Échec du retrait. Veuillez réessayer.');
       setErrorMessage('Une erreur est survenue lors du retrait.');
@@ -95,7 +96,7 @@ const WithdrawalForm: React.FC<WithdrawalFormProps> = ({
             id="phoneNumber"
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
-            className="pl-10 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500"
+            className="pl-10 py-3 border block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500"
             placeholder="Ex: 0812345678"
             required
           />
@@ -118,7 +119,7 @@ const WithdrawalForm: React.FC<WithdrawalFormProps> = ({
             id="amount"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
-            className="pl-10 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500"
+            className="pl-10 py-3 border block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500"
             placeholder="Entrez le montant"
             min="1000"
             step="100"

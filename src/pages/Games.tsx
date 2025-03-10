@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaDollarSign, FaClock, FaTrophy, FaArrowRight } from 'react-icons/fa';
+import { FaDollarSign, FaTrophy, FaArrowRight } from 'react-icons/fa';
 import BettingForm from '../components/BettingForm';
 
 const Games = () => {
@@ -131,7 +131,7 @@ const Games = () => {
       {/* Games Grid */}
       <div className="py-8 sm:py-12 md:py-16">
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-          {categories.map((category, categoryIndex) => (
+          {categories.map((category) => (
             <div key={category} className="mb-12 last:mb-0">
               <h2 className="text-xl sm:text-2xl font-bold text-primary-900 mb-6">{category}</h2>
               <div className="grid grid-cols-1 gap-6 sm:gap-8 md:gap-12">

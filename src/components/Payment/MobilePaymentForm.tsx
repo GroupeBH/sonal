@@ -40,6 +40,7 @@ const MobilePaymentForm: React.FC<MobilePaymentFormProps> = ({
       onSuccess();
     } catch (error) {
       setStatus('error');
+      console.error(error)
       setErrorMessage('Échec du paiement. Veuillez réessayer.');
       setIsProcessing(false);
     }
@@ -88,7 +89,7 @@ const MobilePaymentForm: React.FC<MobilePaymentFormProps> = ({
             id="phoneNumber"
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
-            className="pl-10 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500"
+            className="pl-10 py-3 block border border-gray-300 w-full rounded-md shadow-sm focus:border-primary-500 focus:ring-primary-500"
             placeholder="Ex: 0812345678"
             required
           />

@@ -131,7 +131,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onCancel }) => {
               name="firstName"
               value={formData.firstName}
               onChange={handleChange}
-              className="pl-8 sm:pl-10 block py-3 border border-gray-300 w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 text-xs sm:text-sm"
+              className="pl-8 sm:pl-10 block py-3 border border-gray-300 w-full rounded-md shadow-sm focus:border-primary-500 focus:ring-primary-500 text-xs sm:text-sm"
               placeholder="Jean"
             />
           </div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaCalendarAlt, FaSearch, FaDownload, FaArrowRight } from 'react-icons/fa';
-
+import { Link } from 'react-router-dom';
 const Results = () => {
   const [selectedGame, setSelectedGame] = useState('all');
   const [selectedMonth, setSelectedMonth] = useState('');
@@ -142,10 +142,13 @@ const Results = () => {
                         <FaDownload className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" />
                         PDF
                       </button>
-                      <button className="flex-1 sm:flex-none inline-flex items-center justify-center px-3 sm:px-4 py-1.5 sm:py-2 border border-transparent rounded-md text-xs sm:text-sm text-white bg-blue-600 hover:bg-blue-700">
-                        Vérifier mes numéros
-                        <FaArrowRight className="ml-1.5 sm:ml-2 w-3 h-3 sm:w-4 sm:h-4" />
-                      </button>
+                      <Link to={"/verify-ticket"}>
+                        <button className="flex-1 sm:flex-none inline-flex items-center justify-center px-3 sm:px-4 py-1.5 sm:py-2 border border-transparent rounded-md text-xs sm:text-sm text-white bg-blue-600 hover:bg-blue-700">
+                          Vérifier mes numéros
+                          <FaArrowRight className="ml-1.5 sm:ml-2 w-3 h-3 sm:w-4 sm:h-4" />
+                        </button>
+                      </Link>
+                     
                     </div>
                   </div>
                 </div>
