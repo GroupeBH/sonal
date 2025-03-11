@@ -5,6 +5,9 @@ import { validatePhoneNumber } from '../../utils/validators';
 import { showSuccessNotification, showErrorNotification } from '../../utils/notifications';
 // import { useNavigate } from 'react-router-dom';
 import LoginModal from './LoginModal';
+import { postRequest } from '../../services/supabase';
+import { setCurrentUser } from '../../redux/reducers/user';
+import { useDispatch } from 'react-redux';
 
 interface RegisterFormProps {
   onSuccess: () => void;
@@ -23,6 +26,7 @@ interface FormErrors {
 
 const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onCancel }) => {
   const { login } = useAuth();
+  const dispatch = useDispatch()
   // const navigate = useNavigate()
   const [formData, setFormData] = useState({
     firstName: '',
@@ -90,8 +94,16 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onCancel }) => {
         firstName: formData.firstName,
         lastName: formData.lastName,
         email: formData.email,
+        phone: formData.phone,
       };
 
+      const register = await postRequest('create_user', user)
+
+      console.log(register)
+
+      localStorage.setItem("currentUser", JSON.stringify(register?.data))
+
+      dispatch(setCurrentUser(register?.data))
       login(user);
       showSuccessNotification('Compte créé avec succès! Bienvenue chez SONAL S.A.');
       onSuccess();

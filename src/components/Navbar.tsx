@@ -7,9 +7,11 @@ import { FaTrophy, FaUserPlus } from 'react-icons/fa';
 // import { IoNotificationsOutline } from 'react-icons/io5';
 import { HiOutlineMenu, HiOutlineX } from 'react-icons/hi';
 import RegisterModal from './Auth/RegisterModal';
+import { useSelector } from 'react-redux';
 
 const Navbar = () => {
   const navigate = useNavigate()
+  const currentUser = useSelector((state: unknown) => state?.user?.currentUser)
   const [isOpen, setIsOpen] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
 
@@ -97,16 +99,24 @@ const Navbar = () => {
                   <span className="ml-2">{item.name}</span>
                 </Link>
               ))}
-              <button
-                onClick={() => {
-                  setIsOpen(false);
-                  setShowRegisterModal(true);
-                }}
-                className="flex items-center w-full px-3 py-2 rounded-md text-sm font-medium bg-accent-500 hover:bg-accent-600 text-white transition-colors"
-              >
-                <FaUserPlus className="w-5 h-5 mr-2" />
-                Créer votre compte
-              </button>
+
+              {currentUser ? (
+                <div>
+                  <span>{currentUser?.firstname}</span>
+                </div>
+              ) : (
+                <button
+                  onClick={() => {
+                    setIsOpen(false);
+                    setShowRegisterModal(true);
+                  }}
+                  className="flex items-center w-full px-3 py-2 rounded-md text-sm font-medium bg-accent-500 hover:bg-accent-600 text-white transition-colors"
+                >
+                  <FaUserPlus className="w-5 h-5 mr-2" />
+                  Créer votre compte
+                </button>
+              )}
+             
             </div>
           </div>
         )}

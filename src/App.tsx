@@ -16,8 +16,18 @@ import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import Legal from './pages/Legal';
 import ProtectedRoute from './components/ProtectedRoute';
+import { useDispatch } from 'react-redux';
+import { setCurrentUser } from './redux/reducers/user';
 
 function App() {
+  const dispatch = useDispatch()
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'))
+
+  React.useEffect(()=>{
+    if(currentUser) {
+      dispatch(setCurrentUser(currentUser))
+    }
+  }, [currentUser])
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <Navbar />
