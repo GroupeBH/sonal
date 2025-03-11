@@ -1,6 +1,19 @@
 import React, { useState } from 'react';
 import { Trophy, Clock, Calendar, Search, ChevronDown } from 'lucide-react';
 
+type BetType = 'PLR' | 'ALR' | 'mass-commune';
+
+interface Market {
+  id: string;
+  name: string;
+  description: string;
+  type: BetType;
+  odds?: number;
+  places?: number;
+  pool?: number;
+  takeout?: number;
+}
+
 interface Race {
   id: string;
   name: string;
@@ -18,18 +31,13 @@ interface Race {
     weight: string;
     lastResults: string[];
   }>;
-  markets: Array<{
-    id: string;
-    name: string;
-    description: string;
-    odds: number;
-  }>;
+  markets: Market[];
 }
 
 const races: Race[] = [
   {
     id: '1',
-    name: 'Prix de l\'Arc de Triomphe',
+    name: "Prix de l'Arc de Triomphe",
     location: 'Longchamp',
     time: '14:30',
     date: '2024-03-20',
@@ -67,11 +75,29 @@ const races: Race[] = [
       }
     ],
     markets: [
-      { id: 'win', name: 'Gagnant', description: 'Cheval gagnant', odds: 1 },
-      { id: 'place', name: 'Placé', description: 'Dans les 3 premiers', odds: 0.5 },
-      { id: 'show', name: 'Show', description: 'Dans les 3 premiers', odds: 0.3 },
-      { id: 'exacta', name: 'Exacta', description: '1er et 2ème dans l\'ordre', odds: 8 },
-      { id: 'quinella', name: 'Quinella', description: '1er et 2ème dans n\'importe quel ordre', odds: 4 }
+      { 
+        id: 'plr', 
+        name: 'PLR', 
+        description: 'Pari Libre - Gagnant simple', 
+        type: 'PLR', 
+        odds: 1 
+      },
+      { 
+        id: 'alr', 
+        name: 'ALR', 
+        description: 'Avec Libre Réponse - Top 3', 
+        type: 'ALR', 
+        places: 3,
+        odds: 0.5 
+      },
+      { 
+        id: 'masse-commune', 
+        name: 'Masse Commune', 
+        description: 'Pari commun avec pool partagé', 
+        type: 'mass-commune',
+        pool: 10000,
+        takeout: 15
+      }
     ]
   },
   {
@@ -104,42 +130,73 @@ const races: Race[] = [
       }
     ],
     markets: [
-      { id: 'win', name: 'Gagnant', description: 'Cheval gagnant', odds: 1 },
-      { id: 'place', name: 'Placé', description: 'Dans les 3 premiers', odds: 0.5 },
-      { id: 'exacta', name: 'Exacta', description: '1er et 2ème dans l\'ordre', odds: 8 }
+      { 
+        id: 'plr', 
+        name: 'PLR', 
+        description: 'Gagnant simple', 
+        type: 'PLR', 
+        odds: 1 
+      },
+      { 
+        id: 'masse-commune', 
+        name: 'Masse Commune', 
+        description: 'Pool partagé', 
+        type: 'mass-commune',
+        pool: 5000,
+        takeout: 20
+      }
     ]
   }
 ];
 
 export const HorseRacing = () => {
-  const [selectedRace, setSelectedRace] = useState<Race | null>(null);
+  const [selectedMarkets, setSelectedMarkets] = useState<{[raceId: string]: string}>({});
   const [selectedHorse, setSelectedHorse] = useState<number | null>(null);
-  const [selectedMarket, setSelectedMarket] = useState<string>('win');
   const [stake, setStake] = useState<number>(10);
   const [showResults, setShowResults] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [marketPools, setMarketPools] = useState<{[marketId: string]: number}>({});
 
-  const calculatePotentialWinnings = (odds: number, market: string) => {
-    const marketMultiplier = races[0].markets.find(m => m.id === market)?.odds || 1;
-    return (stake * odds * marketMultiplier).toFixed(2);
+  const calculatePotentialWinnings = (horseOdds: number, market: Market) => {
+    switch (market.type) {
+      case 'PLR':
+        return `${(stake * horseOdds * (market.odds || 1)).toFixed(2)}€`;
+      case 'ALR':
+        const places = market.places || 3;
+        return `${((stake * horseOdds * (market.odds || 1)) / places).toFixed(2)}€`;
+      case 'mass-commune':
+        const currentPool = marketPools[market.id] || market.pool || 0;
+        const takeout = market.takeout || 0;
+        const netPool = currentPool * (1 - takeout / 100);
+        return `${(netPool / 1).toFixed(2)}€ (estimé)`;
+      default:
+        return 'N/A';
+    }
   };
 
-  const placeBet = (raceId: string, horseNumber: number, odds: number, race: Race, horseName: string, market: string) => {
+  const placeBet = (race: Race, horseNumber: number, horseOdds: number, horseName: string, market: Market) => {
     const bet = {
-      id: `horse-${raceId}-${horseNumber}-${Date.now()}`,
+      id: `horse-${race.id}-${horseNumber}-${Date.now()}`,
       type: 'Horse',
-      selection: `${horseName} - ${market}`,
-      odds,
+      selection: `${horseName} - ${market.name}`,
+      odds: horseOdds,
       stake,
       details: {
         event: race.name,
         time: race.time,
         position: horseNumber,
-        market
+        market: market.id
       }
     };
-    
-    console.log('Horse racing bet placed:', bet);
+
+    if (market.type === 'mass-commune') {
+      setMarketPools(prev => ({
+        ...prev,
+        [market.id]: (prev[market.id] || market.pool || 0) + stake
+      }));
+    }
+
+    console.log('Paris hippique placé :', bet);
     setSelectedHorse(null);
     setStake(10);
   };
@@ -207,99 +264,132 @@ export const HorseRacing = () => {
         </div>
       ) : (
         <div className="space-y-6">
-          {filteredRaces.map((race) => (
-            <div key={race.id} className="bg-white rounded-xl p-6 shadow-md">
-              <div className="flex items-center justify-between mb-6">
-                <div>
-                  <h3 className="text-xl font-bold text-gray-800">{race.name}</h3>
-                  <p className="text-gray-600">{race.location}</p>
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="flex items-center text-gray-500">
-                    <Calendar className="w-4 h-4 mr-1" />
-                    {race.date}
-                  </div>
-                  <div className="flex items-center text-gray-500">
-                    <Clock className="w-4 h-4 mr-1" />
-                    {race.time}
-                  </div>
-                </div>
-              </div>
+          {filteredRaces.map((race) => {
+            const selectedMarketId = selectedMarkets[race.id] || race.markets[0].id;
+            const market = race.markets.find(m => m.id === selectedMarketId)!;
 
-              <div className="mb-6">
-                <div className="flex items-center gap-4 mb-4">
-                  <h4 className="font-semibold text-gray-700">Type de pari:</h4>
-                  <select
-                    value={selectedMarket}
-                    onChange={(e) => setSelectedMarket(e.target.value)}
-                    className="border rounded-lg px-3 py-2"
-                  >
-                    {race.markets.map((market) => (
-                      <option key={market.id} value={market.id}>
-                        {market.name} - {market.description}
-                      </option>
-                    ))}
-                  </select>
+            return (
+              <div key={race.id} className="bg-white rounded-xl p-6 shadow-md">
+                <div className="flex items-center justify-between mb-6">
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-800">{race.name}</h3>
+                    <p className="text-gray-600">{race.location}</p>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <div className="flex items-center text-gray-500">
+                      <Calendar className="w-4 h-4 mr-1" />
+                      {race.date}
+                    </div>
+                    <div className="flex items-center text-gray-500">
+                      <Clock className="w-4 h-4 mr-1" />
+                      {race.time}
+                    </div>
+                  </div>
                 </div>
 
-                <div className="flex items-center gap-4 mb-4">
-                  <h4 className="font-semibold text-gray-700">Mise (€):</h4>
-                  <input
-                    type="number"
-                    value={stake}
-                    onChange={(e) => setStake(Number(e.target.value))}
-                    min="1"
-                    className="border rounded-lg px-3 py-2 w-24"
-                  />
-                </div>
-              </div>
-              
-              <div className="space-y-4">
-                {race.horses.map((horse) => (
-                  <div key={horse.number} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                    <div className="flex items-center flex-1">
-                      <div className="w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold">
-                        {horse.number}
+                <div className="mb-6">
+                  <div className="flex items-center gap-4 mb-4">
+                    <h4 className="font-semibold text-gray-700">Type de pari:</h4>
+                    <select
+                      value={selectedMarketId}
+                      onChange={(e) => setSelectedMarkets(prev => ({
+                        ...prev,
+                        [race.id]: e.target.value
+                      }))}
+                      className="border rounded-lg px-3 py-2"
+                    >
+                      {race.markets.map((market) => (
+                        <option key={market.id} value={market.id}>
+                          {market.name} - {market.description}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {market.type === 'mass-commune' && (
+                    <div className="bg-blue-50 p-4 rounded-lg mb-4">
+                      <h4 className="font-semibold text-blue-800 mb-2">Masse Commune</h4>
+                      <div className="grid grid-cols-2 gap-4 text-sm text-blue-700">
+                        <div>
+                          <p>Pool total: {(marketPools[market.id] || market.pool || 0).toFixed(2)}€</p>
+                          <p>Takeout: {market.takeout}%</p>
+                        </div>
+                        <div>
+                          <p>Gagnants: 1er seulement</p>
+                          <p>Cagnotte nette: {
+                            (marketPools[market.id] || market.pool || 0) * 
+                            (1 - (market.takeout || 0) / 100)
+                          .toFixed(2)}€</p>
+                        </div>
                       </div>
-                      <div className="ml-4 flex-1">
-                        <div className="flex items-center justify-between">
-                          <h4 className="font-semibold text-gray-800">{horse.name}</h4>
-                          <div className="flex items-center gap-2">
-                            {horse.lastResults.map((result, index) => (
-                              <span
-                                key={index}
-                                className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-sm font-medium text-gray-700"
-                              >
-                                {result}
-                              </span>
-                            ))}
+                    </div>
+                  )}
+
+                  <div className="flex items-center gap-4 mb-4">
+                    <h4 className="font-semibold text-gray-700">Mise (€):</h4>
+                    <input
+                      type="number"
+                      value={stake}
+                      onChange={(e) => setStake(Number(e.target.value))}
+                      min="1"
+                      className="border rounded-lg px-3 py-2 w-24"
+                    />
+                  </div>
+                </div>
+                
+                <div className="space-y-4">
+                  {race.horses.map((horse) => (
+                    <div key={horse.number} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                      <div className="flex items-center flex-1">
+                        <div className="w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold">
+                          {horse.number}
+                        </div>
+                        <div className="ml-4 flex-1">
+                          <div className="flex items-center justify-between">
+                            <h4 className="font-semibold text-gray-800">{horse.name}</h4>
+                            <div className="flex items-center gap-2">
+                              {horse.lastResults.map((result, index) => (
+                                <span
+                                  key={index}
+                                  className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-sm font-medium text-gray-700"
+                                >
+                                  {result}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                          <div className="grid grid-cols-2 gap-4 mt-2 text-sm text-gray-600">
+                            <p>Jockey: {horse.jockey}</p>
+                            <p>Entraineur: {horse.trainer}</p>
+                            <p>Age: {horse.age} ans</p>
+                            <p>Poids: {horse.weight}</p>
                           </div>
                         </div>
-                        <div className="grid grid-cols-2 gap-4 mt-2 text-sm text-gray-600">
-                          <p>Jockey: {horse.jockey}</p>
-                          <p>Entraineur: {horse.trainer}</p>
-                          <p>Age: {horse.age} ans</p>
-                          <p>Poids: {horse.weight}</p>
+                      </div>
+                      <div className="ml-4 text-right">
+                        <div className="text-2xl font-bold text-gray-900 mb-1">
+                          {market.type === 'mass-commune' ? 'MC' : horse.odds.toFixed(1)}
                         </div>
+                        <div className="text-sm text-green-600">
+                          {market.type === 'ALR' ? (
+                            `Placé (top ${market.places}) : ${calculatePotentialWinnings(horse.odds, market)}`
+                          ) : (
+                            `Gain potentiel : ${calculatePotentialWinnings(horse.odds, market)}`
+                          )}
+                        </div>
+                        <button
+                          onClick={() => placeBet(race, horse.number, horse.odds, horse.name, market)}
+                          className="mt-2 bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition-colors"
+                        >
+                          Parier
+                        </button>
                       </div>
                     </div>
-                    <div className="ml-4 text-right">
-                      <div className="text-2xl font-bold text-gray-900 mb-1">{horse.odds}</div>
-                      <div className="text-sm text-green-600">
-                        Gain potentiel: {calculatePotentialWinnings(horse.odds, selectedMarket)}€
-                      </div>
-                      <button
-                        onClick={() => placeBet(race.id, horse.number, horse.odds, race, horse.name, selectedMarket)}
-                        className="mt-2 bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition-colors"
-                      >
-                        Parier
-                      </button>
-                    </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </div>
