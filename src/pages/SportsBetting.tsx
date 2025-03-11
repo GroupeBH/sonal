@@ -102,6 +102,7 @@ const matches: Match[] = [
 ];
 
 export const SportsBetting = () => {
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'))
   const [selectedSport, setSelectedSport] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [showPopularEvents, setShowPopularEvents] = useState(true);
@@ -165,6 +166,13 @@ export const SportsBetting = () => {
 
     return won ? 'Gagné' : 'Perdu';
   };
+
+  React.useEffect(()=>{
+        if(currentUser){
+          setIsLoggedIn(true)
+          // setShowLoginModal(false)
+        }
+    }, [currentUser])
 
   return (
     <div className="space-y-8 relative">

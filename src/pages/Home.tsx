@@ -29,7 +29,13 @@ const categories: BettingCategory[] = [
     name: 'Jeux Virtuels',
     description: 'Sports virtuels et simulations',
     icon: Gamepad2
-  }
+  },
+  // {
+  //   id: 'scratch',
+  //   name: 'Jeux de grattage',
+  //   description: 'Sports virtuels et simulations',
+  //   icon: Gamepad2
+  // }
 ];
 
 const featuredEvents = [

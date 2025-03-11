@@ -12,6 +12,7 @@ interface AuthState {
 }
 
 export const Header = () => {
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'))
   const location = useLocation();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -36,6 +37,10 @@ export const Header = () => {
         email: "john@example.com"
       }
     });
+    localStorage.setItem("currentUser", JSON.stringify({
+      name: "John Doe",
+      email: "john@example.com"
+    }))
     setIsAuthModalOpen(false);
   };
 
@@ -45,6 +50,18 @@ export const Header = () => {
       user: null
     });
   };
+
+  React.useEffect(()=>{
+        if(currentUser){
+          setAuthState({
+            isAuthenticated: true,
+            user: {
+              name: "John Doe",
+              email: "john@example.com"
+            }
+          });
+        }
+    }, [currentUser])
 
   return (
     <>

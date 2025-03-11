@@ -8,6 +8,7 @@ import { HorseRacing } from './pages/HorseRacing';
 import { Lottery } from './pages/Lottery';
 import { VirtualGames } from './pages/VirtualGames';
 import { BetSlip } from './components/BetSlip';
+import { ScratchGames } from './pages/ScratchGames';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/horse-racing" element={<HorseRacing />} />
             <Route path="/lottery" element={<Lottery />} />
             <Route path="/virtual" element={<VirtualGames />} />
+            <Route path="/scratch" element={<ScratchGames />} />
           </Routes>
         </main>
         <BetSlip />

@@ -51,6 +51,7 @@ const games: LotteryGame[] = [
 ];
 
 export const Lottery = () => {
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'))
   const [selectedNumbers, setSelectedNumbers] = useState<number[]>([]);
   const [ticketNumber, setTicketNumber] = useState('');
   const [checkResult, setCheckResult] = useState<{won?: boolean; numbers?: number[]; message?: string} | null>(null);
@@ -111,6 +112,13 @@ export const Lottery = () => {
       message: isWin ? 'Félicitations, vous avez gagné ! 🎉' : 'Désolé, pas de gain cette fois...'
     });
   };
+
+  React.useEffect(()=>{
+      if(currentUser){
+        setIsLoggedIn(true)
+        setShowLoginModal(false)
+      }
+  }, [currentUser])
 
   return (
     <div className="space-y-8 relative">

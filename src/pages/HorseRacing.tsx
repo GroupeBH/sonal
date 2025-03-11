@@ -150,6 +150,7 @@ const races: Race[] = [
 ];
 
 export const HorseRacing = () => {
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'))
   const [selectedMarkets, setSelectedMarkets] = useState<{[raceId: string]: string}>({});
   const [selectedHorse, setSelectedHorse] = useState<number | null>(null);
   const [stake, setStake] = useState<number>(10);
@@ -205,6 +206,10 @@ export const HorseRacing = () => {
     race.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     race.location.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  React.useEffect(()=>{
+    if(currentUser) console.log(currentUser)
+  }, [currentUser])
 
   return (
     <div className="space-y-8">
