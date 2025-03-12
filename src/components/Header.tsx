@@ -22,6 +22,7 @@ export const Header = () => {
     isAuthenticated: false,
     user: null
   });
+  const [username, setUsername] = useState<any>()
 
   const isActive = (path: string) => {
     return location.pathname === path ? "bg-indigo-800" : "";
@@ -33,12 +34,12 @@ export const Header = () => {
     setAuthState({
       isAuthenticated: true,
       user: {
-        name: "John Doe",
+        name: username,
         email: "john@example.com"
       }
     });
     localStorage.setItem("currentUser", JSON.stringify({
-      name: "John Doe",
+      name: username,
       email: "john@example.com"
     }))
     setIsAuthModalOpen(false);
@@ -56,7 +57,7 @@ export const Header = () => {
           setAuthState({
             isAuthenticated: true,
             user: {
-              name: "John Doe",
+              name: currentUser.name,
               email: "john@example.com"
             }
           });
@@ -237,27 +238,29 @@ export const Header = () => {
               </div>
               <form onSubmit={handleLogin} className="space-y-4">
                 {!isLoginMode && (
-                  <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                      Nom
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                    />
-                  </div>
-                )}
-                <div>
+                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                     Email
                   </label>
                   <input
                     type="email"
                     id="email"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                    className="mt-1 block w-full rounded-md border py-2 px-2 border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                   />
                 </div>
+                )}
+                 <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                      Nom d{"'"}utilisateur
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      onChange={(e) => setUsername(e.target.value)}
+                      className="mt-1 block w-full rounded-md border py-2 px-2 border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                    />
+                  </div>
+                
                 <div>
                   <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                     Mot de passe
@@ -265,7 +268,7 @@ export const Header = () => {
                   <input
                     type="password"
                     id="password"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                    className="mt-1 block w-full rounded-md border py-2 px-2 border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                   />
                 </div>
                 <div className="flex justify-between items-center mt-6">
