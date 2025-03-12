@@ -88,7 +88,7 @@ const Hero = () => {
                     <div className="flex flex-col sm:flex-row gap-4 mt-6">
                       <div
                         onClick={() => navigate(`${slide.href}`)}
-                        className="flex items-center justify-center px-8 py-4 bg-slate-100/90 hover:bg-slate-100 text-slate-900 font-semibold rounded-xl transition-all duration-300 hover:scale-[1.02] shadow-lg hover:shadow-xl"
+                        className="flex items-center cursor-pointer justify-center px-8 py-4 bg-slate-100/90 hover:bg-slate-100 text-slate-900 font-semibold rounded-xl transition-all duration-300 hover:scale-[1.02] shadow-lg hover:shadow-xl"
                       >
                         <span>Voir les résultats</span>
                         <BsArrowRight className="ml-3 h-6 w-6" />
@@ -96,7 +96,7 @@ const Hero = () => {
 
                        <div
                           onClick={() => navigate(`${slide.href}`)}
-                          className="flex items-center justify-center px-8 py-4 bg-blue-600/90 hover:bg-blue-700/90 text-white font-semibold rounded-xl transition-all duration-300 hover:scale-[1.02] shadow-lg hover:shadow-xl"
+                          className="flex items-center justify-center cursor-pointer px-8 py-4 bg-blue-600/90 hover:bg-blue-700/90 text-white font-semibold rounded-xl transition-all duration-300 hover:scale-[1.02] shadow-lg hover:shadow-xl"
                         >
                           <span>Jouer maintenant</span>
                           <BsArrowRight className="ml-3 h-6 w-6" />
