@@ -9,6 +9,8 @@ import { Lottery } from './pages/Lottery';
 import { VirtualGames } from './pages/VirtualGames';
 import { BetSlip } from './components/BetSlip';
 import { ScratchGames } from './pages/ScratchGames';
+import { About } from './pages/About';
+import { ContactPage } from './pages/Contact';
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
             <Route path="/lottery" element={<Lottery />} />
             <Route path="/virtual" element={<VirtualGames />} />
             <Route path="/scratch" element={<ScratchGames />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<ContactPage />} />
           </Routes>
         </main>
         <BetSlip />

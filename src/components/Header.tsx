@@ -183,33 +183,26 @@ export const Header = () => {
                           Accueil
                         </Link>
                         <Link
-                          to="/sports"
+                          to="/about"
                           className="block px-4 py-2 rounded-lg text-gray-800 hover:bg-indigo-50 hover:text-indigo-600"
                           onClick={() => setIsMenuOpen(false)}
                         >
-                          Paris Sportifs
+                          A propos
                         </Link>
                         <Link
-                          to="/horse-racing"
+                          to="/contact"
                           className="block px-4 py-2 rounded-lg text-gray-800 hover:bg-indigo-50 hover:text-indigo-600"
                           onClick={() => setIsMenuOpen(false)}
                         >
-                          Paris Hippiques
+                          Nous contactez
                         </Link>
                         <Link
-                          to="/lottery"
+                          to="/"
                           className="block px-4 py-2 rounded-lg text-gray-800 hover:bg-indigo-50 hover:text-indigo-600"
                           onClick={() => setIsMenuOpen(false)}
                         >
-                          Loterie
-                        </Link>
-                        <Link
-                          to="/virtual"
-                          className="block px-4 py-2 rounded-lg text-gray-800 hover:bg-indigo-50 hover:text-indigo-600"
-                          onClick={() => setIsMenuOpen(false)}
-                        >
-                          Jeux Virtuels
-                        </Link>
+                          Inscription
+                        </Link> 
                       </nav>
                     </div>
                   </div>
