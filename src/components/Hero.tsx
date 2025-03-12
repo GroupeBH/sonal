@@ -25,14 +25,14 @@ const Hero = () => {
     {
       id: 3,
       title: "Bet243 sports",
-      description: "Le pari hippique par excellence avec le PMU",
+      description: "Pariez sur toutes les compétitions sportives du moment",
       image: "https://res.cloudinary.com/dblzafklq/image/upload/v1741651122/ei2jrp5m7z5pvpvzgarc.jpg",
       href: "/sports"
     },
     {
       id: 4,
       title: "Bet243 games",
-      description: "Pariez sur les courses de chevaux en direct avec des cotes dynamiques",
+      description: "Retrouvez les meilleurs jeux virtuels",
       image: "https://res.cloudinary.com/dblzafklq/image/upload/v1741651122/ei2jrp5m7z5pvpvzgarc.jpg",
       href: "/virtual"
     }
