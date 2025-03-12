@@ -46,7 +46,8 @@ const featuredEvents = [
     time: '20:00',
     date: '20 Mars 2024',
     odds: 2.45,
-    type: 'Football'
+    type: 'Football',
+    href: '/sports'
   },
   {
     id: '2',
@@ -55,7 +56,8 @@ const featuredEvents = [
     time: '14:30',
     date: '20 Mars 2024',
     odds: 3.50,
-    type: 'Hippique'
+    type: 'Hippique',
+    href: '/horse-racing'
   }
 ];
 
@@ -106,10 +108,10 @@ export const Home = () => {
               <Star className="w-6 h-6 text-yellow-500" />
               Événements à la Une
             </h3>
-            <button className="text-indigo-600 hover:text-indigo-700 flex items-center gap-2">
+            {/* <button className="text-indigo-600 hover:text-indigo-700 flex items-center gap-2">
               <TrendingUp className="w-4 h-4" />
               Voir tout
-            </button>
+            </button> */}
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
@@ -126,7 +128,10 @@ export const Home = () => {
                 <p className="text-sm opacity-90 mt-1">{event.match}</p>
                 <div className="mt-4 flex justify-between items-center">
                   <span className="text-xl font-bold">Cote: {event.odds}</span>
-                  <button className="bg-white text-indigo-600 px-4 py-2 rounded-md font-medium hover:bg-opacity-90 transition-colors">
+                  <button
+                    onClick={() => navigate(event.href)}
+                    className="bg-white text-indigo-600 px-4 py-2 rounded-md font-medium hover:bg-opacity-90 transition-colors"
+                  >
                     Parier
                   </button>
                 </div>
