@@ -59,7 +59,7 @@ export const ContactPage = () => {
               Retrouvez-nous à notre siège social :
             </p>
             <p className="mt-4 text-blue-600">
-              123 Avenue du port, Gombe kinshasa
+               203 Av. de l'Equateur, Kinshasa
             </p>
           </div>
         </div>

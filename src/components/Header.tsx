@@ -46,10 +46,12 @@ export const Header = () => {
   };
 
   const handleLogout = () => {
+    localStorage.removeItem("currentUser");
     setAuthState({
       isAuthenticated: false,
       user: null
     });
+    window.location.reload();
   };
 
   React.useEffect(()=>{
