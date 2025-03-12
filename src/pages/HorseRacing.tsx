@@ -153,7 +153,7 @@ export const HorseRacing = () => {
   const currentUser = JSON.parse(localStorage.getItem('currentUser'))
   const [selectedMarkets, setSelectedMarkets] = useState<{[raceId: string]: string}>({});
   const [selectedHorse, setSelectedHorse] = useState<number | null>(null);
-  const [stake, setStake] = useState<number>(10);
+  const [stake, setStake] = useState<number>(1000);
   const [showResults, setShowResults] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [marketPools, setMarketPools] = useState<{[marketId: string]: number}>({});
@@ -161,15 +161,15 @@ export const HorseRacing = () => {
   const calculatePotentialWinnings = (horseOdds: number, market: Market) => {
     switch (market.type) {
       case 'PLR':
-        return `${(stake * horseOdds * (market.odds || 1)).toFixed(2)}€`;
+        return `${(stake * horseOdds * (market.odds || 1)).toFixed(2)}fc`;
       case 'ALR':
         const places = market.places || 3;
-        return `${((stake * horseOdds * (market.odds || 1)) / places).toFixed(2)}€`;
+        return `${((stake * horseOdds * (market.odds || 1)) / places).toFixed(2)}fc`;
       case 'mass-commune':
         const currentPool = marketPools[market.id] || market.pool || 0;
         const takeout = market.takeout || 0;
         const netPool = currentPool * (1 - takeout / 100);
-        return `${(netPool / 1).toFixed(2)}€ (estimé)`;
+        return `${(netPool / 1).toFixed(2)}fc (estimé)`;
       default:
         return 'N/A';
     }
@@ -316,7 +316,7 @@ export const HorseRacing = () => {
                       <h4 className="font-semibold text-blue-800 mb-2">Masse Commune</h4>
                       <div className="grid grid-cols-2 gap-4 text-sm text-blue-700">
                         <div>
-                          <p>Pool total: {(marketPools[market.id] || market.pool || 0).toFixed(2)}€</p>
+                          <p>Pool total: {(marketPools[market.id] || market.pool || 0).toFixed(2)}fc</p>
                           <p>Takeout: {market.takeout}%</p>
                         </div>
                         <div>
@@ -324,14 +324,14 @@ export const HorseRacing = () => {
                           <p>Cagnotte nette: {
                             (marketPools[market.id] || market.pool || 0) * 
                             (1 - (market.takeout || 0) / 100)
-                          .toFixed(2)}€</p>
+                          .toFixed(2)}fc</p>
                         </div>
                       </div>
                     </div>
                   )}
 
                   <div className="flex items-center gap-4 mb-4">
-                    <h4 className="font-semibold text-gray-700">Mise (€):</h4>
+                    <h4 className="font-semibold text-gray-700">Mise (fc):</h4>
                     <input
                       type="number"
                       value={stake}

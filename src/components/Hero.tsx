@@ -1,8 +1,10 @@
 import React from 'react';
 import { BsArrowRight } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
 //   const { isAuthenticated } = useAuth();
+  const navigate = useNavigate()
   const [currentSlide, setCurrentSlide] = React.useState(0);
 
   const slides = [
@@ -15,24 +17,24 @@ const Hero = () => {
     },
     {
       id: 2,
-      title: "Paris HIPPIQUES PMU Alr",
+      title: "Paris hippiques",
       description: "Pariez sur les courses internationales avec le PMU",
       image: "https://res.cloudinary.com/dblzafklq/image/upload/v1741651122/xk3v4hlaqzpyymtpoocq.jpg",
       href: "/horse-racing"
     },
     {
       id: 3,
-      title: "Paris HIPPIQUES PMU Plr",
+      title: "Bet243 sports",
       description: "Le pari hippique par excellence avec le PMU",
       image: "https://res.cloudinary.com/dblzafklq/image/upload/v1741651122/ei2jrp5m7z5pvpvzgarc.jpg",
-      href: "/horse-racing"
+      href: "/sports"
     },
     {
       id: 4,
-      title: "Paris HIPPIQUES masse commune",
+      title: "Bet243 games",
       description: "Pariez sur les courses de chevaux en direct avec des cotes dynamiques",
       image: "https://res.cloudinary.com/dblzafklq/image/upload/v1741651122/ei2jrp5m7z5pvpvzgarc.jpg",
-      href: "/horse-racing"
+      href: "/virtual"
     }
   ];
 
@@ -72,7 +74,7 @@ const Hero = () => {
                 <div className="backdrop-blur-xl bg-slate-100/20 p-8 rounded-2xl shadow-2xl border border-slate-300/30 max-w-2xl">
                   <div className="space-y-6">
                     <div className="overflow-hidden">
-                      <h1 className="animate-text-slide text-lg sm:text-xl md:text-xl font-black text-slate-100 leading-tight drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
+                      <h1 className="animate-text-slide text-xl sm:text-2xl md:text-2xl font-black text-slate-100 leading-tight drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
                         {slide.title}
                       </h1>
                     </div>
@@ -84,21 +86,21 @@ const Hero = () => {
                     </div>
 
                     <div className="flex flex-col sm:flex-row gap-4 mt-6">
-                      <a
-                        href={slide.href}
+                      <div
+                        onClick={() => navigate(`${slide.href}`)}
                         className="flex items-center justify-center px-8 py-4 bg-slate-100/90 hover:bg-slate-100 text-slate-900 font-semibold rounded-xl transition-all duration-300 hover:scale-[1.02] shadow-lg hover:shadow-xl"
                       >
                         <span>Voir les résultats</span>
                         <BsArrowRight className="ml-3 h-6 w-6" />
-                      </a>
+                      </div>
 
-                       <a
-                          href={slide.href}
+                       <div
+                          onClick={() => navigate(`${slide.href}`)}
                           className="flex items-center justify-center px-8 py-4 bg-blue-600/90 hover:bg-blue-700/90 text-white font-semibold rounded-xl transition-all duration-300 hover:scale-[1.02] shadow-lg hover:shadow-xl"
                         >
                           <span>Jouer maintenant</span>
                           <BsArrowRight className="ml-3 h-6 w-6" />
-                        </a>
+                        </div>
                     </div>
                   </div>
                 </div>

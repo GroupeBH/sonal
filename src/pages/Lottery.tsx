@@ -26,25 +26,25 @@ const games: LotteryGame[] = [
     name: 'Super Loto',
     description: 'Tirage hebdomadaire avec jackpot garanti',
     drawTime: '2024-03-23T20:00:00',
-    jackpot: '5 000 000 €',
+    jackpot: '5 000 000 fc',
     price: 2.20,
     lastResults: [7, 13, 23, 32, 41, 45]
   },
   {
     id: '2',
-    name: 'Euro Millions',
+    name: 'Congo Millions',
     description: 'Le plus grand jackpot européen',
     drawTime: '2024-03-22T20:45:00',
-    jackpot: '17 000 000 €',
+    jackpot: '17 000 000 fc',
     price: 2.50,
     lastResults: [5, 11, 25, 37, 43, 44]
   },
   {
     id: '3',
-    name: 'Mega Fortune',
+    name: 'Suka na mvuama',
     description: 'Loterie avec bonus progressif',
     drawTime: '2024-03-24T18:30:00',
-    jackpot: '10 000 000 €',
+    jackpot: '100 000 000 fc',
     price: 3.00,
     lastResults: [2, 15, 28, 34, 47, 49]
   }
